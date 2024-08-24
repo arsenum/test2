@@ -1,0 +1,37 @@
+{
+  "machine": {
+    "gpu": 1,
+    "cpu": 1000,
+    "ram": 100
+  },
+  "job": {
+    "Name": "[JOB_NAME_PLACEHOLDER]",
+    "APIVersion": "V1beta1",
+    "Spec": {
+      "Deal": {
+        "Concurrency": 1
+      },
+      "Docker": {
+       "EnvironmentVariables": [
+          {{ if .CID }}"{{ subst "CID=%s" .CID }}"{{ end }}
+        ],
+        "Image": "sha256:8cabd01dbccd922ab67547ffde12fd7b8cdbd074e6d858bae8c8e47d9c0603b5"
+      },
+      "Engine": "Docker",
+      "Network": {
+        "Type": "None"
+      },
+      "PublisherSpec": {
+        "Type": "IPFS"
+      },
+      "Resources": {
+        "GPU": ""
+      },
+      "Timeout": 1800,
+      "Verifier": "Noop"
+    },
+    "Meta": {
+          "IMAGE_CID": "QmcSq6LWzvgg24jYKjqkav6iZ57xwYvp97sEnZdYymnuKx"
+    },
+  }
+}

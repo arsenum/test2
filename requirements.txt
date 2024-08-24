@@ -1,0 +1,7 @@
+gradio
+watchdog
+psutil
+Pillow
+numpy
+ipfshttpclient
+shutil
