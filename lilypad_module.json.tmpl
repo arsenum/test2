@@ -12,9 +12,7 @@
         "Concurrency": 1
       },
       "Docker": {
-       "EnvironmentVariables": [
-          {{ if .CID }}"{{ subst "CID=%s" .CID }}"{{ end }}
-        ],
+        "EnvironmentVariables": [],
         "Image": "sha256:4b01e042ea55c6b498a585eef8d59962608693b6f4d69da0b3ea0374b45ec761"
       },
       "Engine": "Docker",
@@ -31,7 +29,7 @@
       "Verifier": "Noop"
     },
     "Meta": {
-          "IMAGE_CID": "QmaTu1HdAoEsWR8V6Zq7ugd6Wrfv7456qWA8wTxPvS3az5"
-    },
+      "IMAGE_CID": "QmaTu1HdAoEsWR8V6Zq7ugd6Wrfv7456qWA8wTxPvS3az5"
+    }
   }
 }
