@@ -1,4 +1,9 @@
 #!/bin/bash
 
 ipfs daemon &
-python watcher.py
+
+if [ -z "$CID" ]; then
+  python watcher.py
+else
+  python cli.py
+fi

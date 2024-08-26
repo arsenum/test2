@@ -4,4 +4,3 @@ psutil
 Pillow
 numpy
 ipfshttpclient
-shutil
