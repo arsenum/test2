@@ -9,7 +9,7 @@ import shutil
 sha256 = ""
 tagname = ""
 updated_contents = ""
-script_dir =""
+script_dir = os.path.dirname(os.path.abspath(__file__))
 new_file_path = ""
 def publish_to_github():
     try:
@@ -44,6 +44,8 @@ def build(input, output):
         "-f", "/shared/Dockerfile",
         "."
     ]
+
+
 
     result = subprocess.run(command, capture_output=True, text=True)
     print("docker build stdout:", result.stdout)
@@ -87,6 +89,7 @@ def publish_build_to_ipfs():
     with open(new_file_path, 'w') as file:
         file.write(updated_contents)
 
+
     print("stdout:", result.stdout)
     print("stderr:", result.stderr)
     return cid
@@ -103,8 +106,9 @@ def process_and_upload(image):
 
 def run_on_lilypad_network(cid):
     try:
-        result = subprocess.run(['python', 'cli.py', cid], capture_output=True, text=True, check=True)
-        return result.stdout
+        print(os.path.join(script_dir,'cli.py'), cid)
+        result = subprocess.run(['python', os.path.join(script_dir,'cli.py'), cid], capture_output=True, text=True, check=True)
+        return result.stdout, result.stdout.split("cid:")[-1]
     except subprocess.CalledProcessError as e:
         return f"An error occurred: {e.stderr}"
 
@@ -138,9 +142,10 @@ with gr.Blocks() as demo:
     with gr.Row():
         run_button = gr.Button("Run Module on Lilypad")
         run_output = gr.Textbox(label="Run Output")
-        run_button.click(run_on_lilypad_network, inputs=cid_output, outputs=run_output)
-
     cid_input = gr.Textbox(label="Result CID")
+    run_button.click(run_on_lilypad_network, inputs=cid_output, outputs=[run_output,cid_input])
+
+
 
 print("Starting the app...")
 demo.launch(server_name="0.0.0.0", server_port=7860)
